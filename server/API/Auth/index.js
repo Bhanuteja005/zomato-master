@@ -1,10 +1,8 @@
-import bcryptjs from 'bcryptjs';
 import express from 'express';
-import jwt from 'jsonwebtoken';
 const Router = express.Router();
 
 //Models
-import { UserModel } from '../../database/user';
+import { User } from '../../database/user';
 
 
 /*
@@ -17,29 +15,13 @@ Method     POST
 
 Router.post("/signup", async (req, res) => {
     try{
-        const { email, password, fullname, phoneNumber } = req.body.credentials;
-
-        // check whether email exists or phone number exists
-        const checkUserByEmail = await UserModel.findOne({email: email});
-        const checkUserByPhone = await UserModel.findOne({phoneNumber: phoneNumber});
-        if(checkUserByEmail || checkUserByPhone){
-            return res.json({error: "User already exists!"});
-        }
-        // Hashing and Salting
-        const bcryptSalt = await bcryptjs.genSalt(8); 
-        const hashedPassword = await bcryptjs.hash(password, bcryptSalt);
+        const { email,  phoneNumber } = req.body.credentials;
+        await User.findByEmailAndPhone( req.body.credentials );
         // DB
-        await UserModel.create({
-            ...req.body.credentials,
-            password: hashedPassword,
-        });
-
-
+        const newUser = await User.create(req.body.credentials);
         //JWT Auth Token
-        const token = jwt.sign({user: {fullname, email}},"ZomatoAppBhanu" );
-
+        const token = newUser.generateJwtToken();
         return res.status(200).json({token, status: "Success"});
-
     } catch(error){
         return res.status(500).json({error: error.message});
     }
