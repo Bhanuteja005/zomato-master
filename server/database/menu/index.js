@@ -15,6 +15,9 @@ const MenuSchema = new mongoose.Schema({
             unique:true
         }
     ]
-});
+},{
+    timestamps:true
+  
+  });
 
 export const MenuModel = mongoose.model("Menus", MenuSchema);

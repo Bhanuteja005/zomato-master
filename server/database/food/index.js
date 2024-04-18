@@ -19,6 +19,9 @@ const FoodSchema = new mongoose.Schema({
       type:mongoose.Types.ObjectId,
       ref:'Restaurants',
       required:true 
-    }
-});
+    },
+},{
+    timestamps:true
+  
+  });
 export const FoodModel = mongoose.model("Foods", FoodSchema);
