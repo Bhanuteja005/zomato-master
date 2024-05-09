@@ -1,5 +1,5 @@
 import React from "react";
-import { FaRegCircleUser } from "react-icons/fa6";
+import { FaPizzaSlice } from "react-icons/fa";
 
 const NavSm = () => {
     return (
@@ -13,7 +13,7 @@ const NavSm = () => {
                 
                 <button className=" text-white bg-zomato-400 px-3 py-1 rounded-full">Use App</button>
                 <span className="border p-2 border-grey-300 rounded-full text-zomato-400">
-                <FaRegCircleUser  />
+                <FaPizzaSlice  />
                 </span>
             </div>
             </div>
