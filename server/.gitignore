@@ -1,5 +1,7 @@
 /node_modules
 
-
-/env
 package-lock.json
+
+.env
+
+AWS new user credentials 
